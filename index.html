@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Key Search Algorithm Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lost Key Search Algorithm Visualization</h1>
+        </header>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="algorithm-select">Search Algorithm:</label>
+                <select id="algorithm-select">
+                    <option value="breadth-first">Breadth-First Search</option>
+                    <option value="depth-first">Depth-First Search</option>
+                    <option value="depth-limited">Depth-Limited Search</option>
+                    <option value="iterative-deepening">Iterative Deepening</option>
+                    <option value="uniform-cost">Uniform Cost Search</option>
+                    <option value="bidirectional">Bidirectional Search</option>
+                    <option value="astar">A* Search</option>
+                    <option value="greedy">Greedy Best-First Search</option>
+                    <option value="ida-star">Iterative Deepening A*</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="start-room">Start Room:</label>
+                <select id="start-room">
+                    <option value="LR">Living Room (LR)</option>
+                    <option value="DR">Dining Room (DR)</option>
+                    <option value="K">Kitchen (K)</option>
+                    <option value="G">Garage (G)</option>
+                    <option value="SR">Study Room (SR)</option>
+                    <option value="CR1">Common Room 1 (CR1)</option>
+                    <option value="STR">Storage Room (STR)</option>
+                    <option value="CB">Common Bathroom (CB)</option>
+                    <option value="STAIRCASE">Staircase</option>
+                    <option value="MB">Master Bedroom (MB)</option>
+                    <option value="MBR">Master Bathroom (MBR)</option>
+                    <option value="BR1">Bedroom 1 (BR1)</option>
+                    <option value="BR2">Bedroom 2 (BR2)</option>
+                    <option value="BR3">Bedroom 3 (BR3)</option>
+                    <option value="BR4">Bedroom 4 (BR4)</option>
+                    <option value="BR5">Bedroom 5 (BR5)</option>
+                    <option value="BR6">Bedroom 6 (BR6)</option>
+                    <option value="SFLR">Second Floor Living Room (SFLR)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="goal-room">Goal Room:</label>
+                <select id="goal-room">
+                    <option value="LR">Living Room (LR)</option>
+                    <option value="DR">Dining Room (DR)</option>
+                    <option value="K">Kitchen (K)</option>
+                    <option value="G">Garage (G)</option>
+                    <option value="SR">Study Room (SR)</option>
+                    <option value="CR1">Common Room 1 (CR1)</option>
+                    <option value="STR" selected>Storage Room (STR)</option>
+                    <option value="CB">Common Bathroom (CB)</option>
+                    <option value="STAIRCASE">Staircase</option>
+                    <option value="MB">Master Bedroom (MB)</option>
+                    <option value="MBR">Master Bathroom (MBR)</option>
+                    <option value="BR1">Bedroom 1 (BR1)</option>
+                    <option value="BR2">Bedroom 2 (BR2)</option>
+                    <option value="BR3">Bedroom 3 (BR3)</option>
+                    <option value="BR4">Bedroom 4 (BR4)</option>
+                    <option value="BR5">Bedroom 5 (BR5)</option>
+                    <option value="BR6">Bedroom 6 (BR6)</option>
+                    <option value="SFLR">Second Floor Living Room (SFLR)</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button id="start-search">Start Search</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div id="status-info">Ready to search</div>
+            <div id="algorithm-info"></div>
+        </div>
+
+        <div class="legends-container">
+            <div class="legend">
+                <h3>Search States</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color default"></span>
+                        <span>Default</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color visiting"></span>
+                        <span>Visiting</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color visited"></span>
+                        <span>Visited</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color path"></span>
+                        <span>Final Path</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color found"></span>
+                        <span>Goal Found</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-legend">
+                <h3>House Map Layout</h3>
+                <div class="floor-layout">
+                    <div class="floor-section">
+                        <h4>2nd Floor</h4>
+                        <div class="room-connections">
+                            <div class="room-group">
+                                <span class="room-code">SFLR</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">MB</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">MBR</span>
+                            </div>
+                            <div class="room-group">
+                                <span class="room-code">BR1</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">BR3</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">BR5</span>
+                            </div>
+                            <div class="room-group">
+                                <span class="room-code">BR2</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">BR4</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">BR6</span>
+                            </div>
+                            <div class="vertical-connections">
+                                <div class="vertical-line">SFLR ↕ BR1, BR2</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floor-connector">
+                        <span class="stair-indicator">STAIRCASE</span>
+                    </div>
+
+                    <div class="floor-section">
+                        <h4>1st Floor</h4>
+                        <div class="room-connections">
+                            <div class="room-group">
+                                <span class="room-code">SR</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">CR1</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">LR</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">DR</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">K</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">G</span>
+                            </div>
+                            <div class="room-group">
+                                <span class="room-code">CB</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">CR1</span>
+                            </div>
+                            <div class="room-group">
+                                <span class="room-code">STR</span>
+                                <span class="connection-line">—</span>
+                                <span class="room-code">G</span>
+                            </div>
+                            <div class="vertical-connections">
+                                <div class="vertical-line">LR ↕ STAIRCASE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-abbreviations">
+                    <h4>Room Codes</h4>
+                    <div class="abbrev-grid">
+                        <div class="abbrev-item"><strong>LR:</strong> Living Room</div>
+                        <div class="abbrev-item"><strong>DR:</strong> Dining Room</div>
+                        <div class="abbrev-item"><strong>K:</strong> Kitchen</div>
+                        <div class="abbrev-item"><strong>G:</strong> Garage</div>
+                        <div class="abbrev-item"><strong>SR:</strong> Study Room</div>
+                        <div class="abbrev-item"><strong>CR1:</strong> Common Room 1</div>
+                        <div class="abbrev-item"><strong>SFLR:</strong> Second Floor Living Room</div>
+                        <div class="abbrev-item"><strong>STR:</strong> Storage Room</div>
+                        <div class="abbrev-item"><strong>CB:</strong> Common Bathroom</div>
+                        <div class="abbrev-item"><strong>MB:</strong> Master Bedroom</div>
+                        <div class="abbrev-item"><strong>MBR:</strong> Master Bathroom</div>
+                        <div class="abbrev-item"><strong>BR1-6:</strong> Bedrooms 1-6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="visualization-container">
+            <div class="graph-wrapper">
+                <svg id="graph-container"></svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
