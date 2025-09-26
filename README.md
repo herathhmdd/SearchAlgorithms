@@ -9,8 +9,9 @@ This interactive visualization demonstrates nine different search algorithms thr
 ## Features
 
 ### 🏠 House Layout (Graph Structure)
+### 🏠 House Layout (Graph Structure)
 - **First Floor**: Living Room, Dining Room, Kitchen, Garage, Study Room, Common Room 1, Storage Room, Common Bathroom, Staircase
-- **Second Floor**: Master Bedroom, Master Bathroom, Bedroom 1-6, Common Room 2
+- **Second Floor**: Master Bedroom, Master Bathroom, Bedroom 1-6, Second Floor Living Room
 - **Realistic Connections**: All rooms are connected based on a logical house layout
 
 ### 🔍 Search Algorithms Implemented
