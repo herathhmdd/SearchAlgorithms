@@ -603,6 +603,8 @@ async function highlightPathArray(path) {
         updateNode(path[i], 'path');
         await delay(300);
     }
+    // Render final path in legend
+    renderFinalPathLog(path);
 }
 
 async function highlightBidirectionalPath(frontParent, backParent, start, goal, meeting) {
@@ -629,6 +631,30 @@ async function highlightBidirectionalPath(frontParent, backParent, start, goal, 
     // Combine paths
     const fullPath = [...frontPath, ...backPath.slice(1)];
     await highlightPathArray(fullPath);
+    // renderFinalPathLog is already called in highlightPathArray
+}
+
+// Final Path Log Rendering
+function renderFinalPathLog(path) {
+    const finalPathLog = document.getElementById('final-path-log');
+    if (!finalPathLog || !path || path.length === 0) return;
+    
+    finalPathLog.innerHTML = '';
+    
+    for (let i = 0; i < path.length; i++) {
+        const nodeElement = document.createElement('span');
+        nodeElement.className = 'final-path-node';
+        nodeElement.textContent = path[i];
+        finalPathLog.appendChild(nodeElement);
+        
+        // Add arrow after each node except the last one
+        if (i < path.length - 1) {
+            const arrowElement = document.createElement('span');
+            arrowElement.className = 'final-path-arrow';
+            arrowElement.innerHTML = ' → ';
+            finalPathLog.appendChild(arrowElement);
+        }
+    }
 }
 
 // Reset visualization
@@ -648,6 +674,10 @@ function resetVisualization() {
     
     // Reset all edges
     d3.selectAll('.edge').attr('class', 'edge');
+    
+    // Clear final path log
+    const finalPathLog = document.getElementById('final-path-log');
+    if (finalPathLog) finalPathLog.innerHTML = '';
     
     updateStatus('Ready to search', '');
 }

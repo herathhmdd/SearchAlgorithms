@@ -9,10 +9,10 @@ This interactive visualization demonstrates nine different search algorithms thr
 ## Features
 
 ### 🏠 House Layout (Graph Structure)
-### 🏠 House Layout (Graph Structure)
 - **First Floor**: Living Room, Dining Room, Kitchen, Garage, Study Room, Common Room 1, Storage Room, Common Bathroom, Staircase
-- **Second Floor**: Master Bedroom, Master Bathroom, Bedroom 1-6, Second Floor Living Room
-- **Realistic Connections**: All rooms are connected based on a logical house layout
+- **Second Floor**: Master Bedroom, Master Bathroom, Bedroom 1-6, Second Floor Living Room (SFLR)
+- **Realistic Connections**: All rooms are connected based on a logical house layout with 18 total rooms
+- **Visual Layout**: Rooms are positioned to resemble an actual two-story house floor plan
 
 ### 🔍 Search Algorithms Implemented
 
@@ -38,8 +38,11 @@ This interactive visualization demonstrates nine different search algorithms thr
   - Green: Final path (with glow effect)
   - Red: Goal found (with bounce animation)
 - **Interactive Controls**: Dropdown menus for algorithm and room selection
-- **Path Highlighting**: Final solution path is clearly marked
+- **Path Highlighting**: Final solution path is clearly marked on the graph
+- **Final Path Display**: Complete path from start to goal shown with arrow icons (→) in the Search States section
+- **Map Legend**: Visual reference showing room locations and connections
 - **Algorithm Information**: Real-time status and algorithm-specific details
+- **Responsive Design**: Adapts to different screen sizes with scrollable containers
 
 ## Project Structure
 
@@ -66,16 +69,25 @@ SearchAlgorithms/
    ```bash
    cd SearchAlgorithms
    ```
-3. Open `index.html` in your web browser
-4. Select a search algorithm, start room, and goal room
-5. Click "Start Search" to begin the visualization
-6. Use "Reset" to clear the visualization and try different configurations
+3. Start a local HTTP server (recommended):
+   ```bash
+   python -m http.server 8080
+   ```
+4. Open your web browser and navigate to `http://localhost:8080`
+5. Alternatively, you can directly open `index.html` in your web browser
+6. Select a search algorithm, start room, and goal room
+7. Click "Start Search" to begin the visualization
+8. Observe the final path displayed in the Search States section with arrow navigation
+9. Use "Reset" to clear the visualization and try different configurations
 
 ### Usage Instructions
-1. **Algorithm Selection**: Choose from 9 different search algorithms
-2. **Room Selection**: Select any of the 18 rooms as start and goal points
-3. **Visualization Control**: Watch the step-by-step algorithm execution
-4. **Path Analysis**: Observe the final path and algorithm performance
+1. **Algorithm Selection**: Choose from 9 different search algorithms using the dropdown menu
+2. **Room Selection**: Select any of the 18 rooms as start and goal points (must be different)
+3. **Visualization Control**: Click "Start Search" and watch the step-by-step algorithm execution
+4. **Path Analysis**: Observe the final path displayed with arrow navigation in the Search States section
+5. **Map Reference**: Use the legend on the right to understand room locations and connections
+6. **Reset Function**: Clear the current search and try different algorithm/room combinations
+7. **Educational Observation**: Compare different algorithms' exploration patterns and path optimality
 
 ## Technical Implementation
 
@@ -90,18 +102,22 @@ SearchAlgorithms/
 - **Implementation**: Calculated based on coordinate differences
 
 ### Animation System
-- **Framework**: D3.js for SVG-based visualization
-- **Timing**: Configurable delays for clear step-by-step observation
-- **States**: Smooth transitions between different node states
-- **Responsiveness**: Adapts to different screen sizes
+- **Framework**: D3.js for SVG-based visualization and interactive graphics
+- **Timing**: Configurable delays for clear step-by-step observation (300-800ms)
+- **States**: Smooth transitions between different node states with CSS animations
+- **Final Path Rendering**: Automatic display of complete solution path with arrow navigation
+- **Responsiveness**: Adapts to different screen sizes with scrollable containers
+- **User Experience**: Intuitive controls with immediate visual feedback
 
 ## Educational Value
 
 This project serves as an excellent educational tool for understanding:
-- **Search Strategy Differences**: Visual comparison of algorithm behaviors
-- **Performance Analysis**: Observation of path optimality and exploration patterns
-- **Graph Theory Applications**: Real-world graph representation and traversal
-- **Algorithm Animation**: Step-by-step execution visualization
+- **Search Strategy Differences**: Visual comparison of algorithm behaviors and exploration patterns
+- **Performance Analysis**: Observation of path optimality, solution efficiency, and exploration patterns
+- **Graph Theory Applications**: Real-world graph representation and traversal in a familiar context
+- **Algorithm Animation**: Step-by-step execution visualization with clear final path display
+- **Interactive Learning**: Hands-on experience with different start/goal combinations
+- **Algorithm Comparison**: Easy switching between algorithms to observe behavioral differences
 
 ## Technologies Used
 - **HTML5**: Modern semantic structure
@@ -116,11 +132,14 @@ This project serves as an excellent educational tool for understanding:
 - **Purpose**: Demonstration project for search algorithm concepts
 
 ## Future Enhancements
-- Additional search algorithms (Best-First, Hill Climbing)
-- Performance metrics display (nodes explored, time complexity)
-- Custom graph creation functionality
-- Algorithm comparison mode
-- Export functionality for educational presentations
+- Additional search algorithms (Best-First, Hill Climbing, Simulated Annealing)
+- Performance metrics display (nodes explored, time complexity, memory usage)
+- Custom graph creation functionality for different house layouts
+- Algorithm comparison mode with side-by-side visualization
+- Export functionality for educational presentations and reports
+- Path cost analysis and optimization metrics
+- Interactive tutorial mode with guided explanations
+- Mobile-responsive touch interface improvements
 
 ## License
 This project is created for educational purposes as part of the University of Moratuwa coursework.

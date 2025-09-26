@@ -1,3 +1,56 @@
+.final-path-log-container {
+    margin-top: 18px;
+    padding: 8px 0 0 0;
+    border-top: 1px solid #e9ecef;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.final-path-log-container h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.final-path-log {
+    flex: 1;
+    min-height: 40px;
+    max-height: 100%;
+    overflow-x: auto;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    padding: 8px;
+    font-size: 15px;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+}
+
+.final-path-node {
+    background: #e9ecef;
+    color: #495057;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-weight: 600;
+    font-size: 15px;
+    min-width: 32px;
+    text-align: center;
+    border: 1px solid #adb5bd;
+}
+
+.final-path-arrow {
+    font-size: 18px;
+    color: #667eea;
+    font-weight: bold;
+    margin: 0 2px;
+}
 * {
     margin: 0;
     padding: 0;
